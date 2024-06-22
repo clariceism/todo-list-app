@@ -1,26 +1,29 @@
-document.addEventListener('DOMContentLoaded', () => {
-    const form = document.getElementById('todo-form');
-    const input = document.getElementById('todo-input');
-    const list = document.getElementById('todo-list');
-  
-    form.addEventListener('submit', (e) => {
-      e.preventDefault();
-      const taskText = input.value.trim();
-      if (taskText !== '') {
-        addTask(taskText);
-        input.value = '';
-        input.focus();
-      }
-    });
-  
-    function addTask(taskText) {
-      const li = document.createElement('li');
-      li.textContent = taskText;
-      li.setAttribute('role', 'listitem');
-      li.addEventListener('click', () => {
-        li.classList.toggle('completed');
-      });
-      list.appendChild(li);
-    }
+document.getElementById('addTaskBtn').addEventListener('click', function() {
+  const taskInput = document.getElementById('taskInput');
+  const taskText = taskInput.value;
+
+  if (taskText.trim() === '') return;
+
+  const taskList = document.getElementById('taskList');
+  const li = document.createElement('li');
+  const radioButton = document.createElement('input');
+  radioButton.type = 'radio';
+  radioButton.className = 'task-radio';
+  li.appendChild(radioButton);
+
+  const taskSpan = document.createElement('span');
+  taskSpan.textContent = taskText;
+  li.appendChild(taskSpan);
+
+  taskList.appendChild(li);
+
+  taskInput.value = '';
+
+  radioButton.addEventListener('click', function() {
+      taskSpan.classList.toggle('completed');
   });
-  
+
+  taskSpan.addEventListener('click', function() {
+      taskSpan.classList.toggle('completed');
+  });
+});
